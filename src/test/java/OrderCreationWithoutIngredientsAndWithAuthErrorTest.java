@@ -8,19 +8,13 @@ import models.User;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-
-import java.util.List;
-
 import static org.hamcrest.CoreMatchers.equalTo;
 import static utils.Utils.randomString;
 
 public class OrderCreationWithoutIngredientsAndWithAuthErrorTest {
     private User userLogin;
     private Order orderCreate;
-
-    private List<String> ingredients;
     private String token;
-
     UserSteps userSteps = new UserSteps();
     OrderSteps orderSteps = new OrderSteps();
 
@@ -36,26 +30,20 @@ public class OrderCreationWithoutIngredientsAndWithAuthErrorTest {
         Response responseLogin = userSteps.sendPostRequestAuthLogin(userLogin);
         token = responseLogin.path("accessToken").toString();
 
-        orderCreate = new Order()
-                .withIngredients(ingredients);
-
+        orderCreate = new Order();
     }
 
     @Test
     public void createOrderWithoutIngredientsWithoutAuthError() {
-
-
         Response responseCreate = orderSteps.sendPostRequestOrdersWithAuth(orderCreate, token);
         checkStatusCodeInResponse(responseCreate);
         checkMessageParameterInResponse(responseCreate);
         checkSuccessParameterInResponse(responseCreate);
-
     }
 
     @Step("Check status code is correct")
     public void checkStatusCodeInResponse(Response responseCreate) {
         responseCreate.then().statusCode(400);
-
     }
 
     @Step("Check message parameter is correct")
@@ -72,6 +60,5 @@ public class OrderCreationWithoutIngredientsAndWithAuthErrorTest {
     public void tearDown() {
         Response responseDelete = userSteps.sendDeleteRequestAuthUser(token);
         responseDelete.then().body("success", equalTo(true)).and().body("message", equalTo("User successfully removed"));
-
     }
 }

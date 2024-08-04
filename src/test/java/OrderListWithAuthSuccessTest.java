@@ -18,20 +18,13 @@ import static org.hamcrest.CoreMatchers.notNullValue;
 import static utils.Utils.randomString;
 
 public class OrderListWithAuthSuccessTest {
-
     private User userLogin;
     private Order orderCreate;
-
     private String ingredient;
-
     private List<String> ingredients;
-
-
     UserSteps userSteps = new UserSteps();
     OrderSteps orderSteps = new OrderSteps();
-
     private String token;
-
     private int number;
 
     @Before
@@ -55,14 +48,10 @@ public class OrderListWithAuthSuccessTest {
 
         Response responseCreate = orderSteps.sendPostRequestOrdersWithAuth(orderCreate, token);
         number = responseCreate.path("order.number");
-
-
-
     }
 
     @Test
     public void getOrderListWithAuth() {
-
         Response responseOrderList = orderSteps.sendGetRequestOrdersWithAuth(token);
         checkStatusCodeInResponse(responseOrderList);
         checkSuccessParameterInResponse(responseOrderList);
@@ -74,7 +63,6 @@ public class OrderListWithAuthSuccessTest {
         checkOrdersObjectUpdatedAtParameterInResponse(responseOrderList);
         checkTotalParameterInResponse(responseOrderList);
         checkTotalTodayParameterInResponse(responseOrderList);
-
     }
 
     @Step("Check status code is correct")
@@ -104,8 +92,7 @@ public class OrderListWithAuthSuccessTest {
 
     @Step("Check number parameter in orders object is correct")
     public void checkOrdersObjectNumberParameterInResponse(Response responseOrderList) {
-        responseOrderList.then().assertThat().body("orders[0].number", equalTo(number
-        ));
+        responseOrderList.then().assertThat().body("orders[0].number", equalTo(number));
     }
 
     @Step("Check createdAt parameter in orders object is correct")
@@ -132,9 +119,5 @@ public class OrderListWithAuthSuccessTest {
     public void tearDown() {
         Response responseDelete = userSteps.sendDeleteRequestAuthUser(token);
         responseDelete.then().body("success", equalTo(true)).and().body("message", equalTo("User successfully removed"));
-
     }
-
-
-
 }

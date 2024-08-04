@@ -10,12 +10,9 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static utils.Utils.randomString;
 
 public class UserLoginWithoutPasswordErrorTest {
-
     private User userCreate;
     private User userLogin;
-
     UserSteps userSteps = new UserSteps();
-
     private String email;
 
     @Before
@@ -28,8 +25,6 @@ public class UserLoginWithoutPasswordErrorTest {
 
         userLogin = new User()
                 .withEmail(email);
-
-
     }
 
     @Test
@@ -40,7 +35,6 @@ public class UserLoginWithoutPasswordErrorTest {
         checkStatusCodeInResponse(response);
         checkSuccessParameterInResponse(response);
         checkMessageParameterInResponse(response);
-
     }
 
     @Step("Check status code is correct")

@@ -10,9 +10,7 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static utils.Utils.randomString;
 
 public class UserCreationWithoutPasswordErrorTest {
-
     private User userCreate;
-
     UserSteps userSteps = new UserSteps();
 
     @Before

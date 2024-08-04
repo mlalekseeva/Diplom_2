@@ -11,14 +11,10 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static utils.Utils.randomString;
 
 public class UserChangeNameWithoutAuthErrorTest {
-
     private User userLogin;
     private User userChange;
-
     UserSteps userSteps = new UserSteps();
-
     private String name = randomString(20);
-
     private String token;
 
     @Before
@@ -31,8 +27,6 @@ public class UserChangeNameWithoutAuthErrorTest {
 
         userChange = new User()
                 .withName(name);
-
-
     }
 
     @Test
@@ -44,13 +38,11 @@ public class UserChangeNameWithoutAuthErrorTest {
         checkStatusCodeInResponse(responseChange);
         checkSuccessParameterInResponse(responseChange);
         checkMessageParameterInResponse(responseChange);
-
     }
 
     @Step("Check status code is correct")
     public void checkStatusCodeInResponse(Response responseChange) {
         responseChange.then().statusCode(401);
-
     }
 
     @Step("Check success parameter is correct")
@@ -67,8 +59,5 @@ public class UserChangeNameWithoutAuthErrorTest {
     public void tearDown() {
         Response responseDelete = userSteps.sendDeleteRequestAuthUser(token);
         responseDelete.then().body("success", equalTo(true)).and().body("message", equalTo("User successfully removed"));
-
     }
-
-
 }

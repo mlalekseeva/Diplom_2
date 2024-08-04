@@ -22,9 +22,7 @@ public class OrderCreationWithIngredientsAndAuthSuccessTest {
     private User userLogin;
     private Order orderCreate;
     private String ingredient;
-
     private List<String> ingredients;
-
     private String token;
     private String ingredientsName;
     private String type;
@@ -34,10 +32,8 @@ public class OrderCreationWithIngredientsAndAuthSuccessTest {
     private int calories;
     private int price;
     private String image;
-
     private String ownerName;
     private String ownerEmail;
-
     UserSteps userSteps = new UserSteps();
     OrderSteps orderSteps = new OrderSteps();
 
@@ -71,13 +67,10 @@ public class OrderCreationWithIngredientsAndAuthSuccessTest {
 
         orderCreate = new Order()
                 .withIngredients(ingredients);
-
     }
 
     @Test
     public void createOrderWithIngredientsAndAuthSuccess() {
-
-
         Response responseCreate = orderSteps.sendPostRequestOrdersWithAuth(orderCreate, token);
         checkStatusCodeInResponse(responseCreate);
         checkSuccessParameterInResponse(responseCreate);
@@ -105,16 +98,11 @@ public class OrderCreationWithIngredientsAndAuthSuccessTest {
         checkOrderObjectUpdatedAtParameterInResponse(responseCreate);
         checkOrderObjectNumberParameterInResponse(responseCreate);
         checkOrderObjectPriceParameterInResponse(responseCreate);
-
-
-
-
     }
 
     @Step("Check status code is correct")
     public void checkStatusCodeInResponse(Response responseCreate) {
         responseCreate.then().statusCode(200);
-
     }
 
     @Step("Check success parameter is correct")
@@ -246,8 +234,5 @@ public class OrderCreationWithIngredientsAndAuthSuccessTest {
     public void tearDown() {
         Response responseDelete = userSteps.sendDeleteRequestAuthUser(token);
         responseDelete.then().body("success", equalTo(true)).and().body("message", equalTo("User successfully removed"));
-
     }
-
-
 }

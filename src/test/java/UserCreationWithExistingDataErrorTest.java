@@ -11,9 +11,7 @@ import static utils.Utils.randomString;
 
 
 public class UserCreationWithExistingDataErrorTest {
-
     private User userCreate;
-
     UserSteps userSteps = new UserSteps();
 
     @Before
@@ -48,5 +46,4 @@ public class UserCreationWithExistingDataErrorTest {
     public void checkMessageParameterInResponse(Response response) {
         response.then().assertThat().body("message", equalTo("User already exists"));
     }
-
 }

@@ -11,12 +11,9 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static utils.Utils.randomString;
 
 public class UserChangeEmailWithAuthSuccessTest {
-
     private User userLogin;
     private User userChange;
-
     UserSteps userSteps = new UserSteps();
-
     private String email = randomString(10) + "@yandex.ru";
     private String token;
 
@@ -30,8 +27,6 @@ public class UserChangeEmailWithAuthSuccessTest {
 
         userChange = new User()
                 .withEmail(email);
-
-
     }
 
     @Test
@@ -43,13 +38,11 @@ public class UserChangeEmailWithAuthSuccessTest {
         checkStatusCodeInResponse(responseChange);
         checkSuccessParameterInResponse(responseChange);
         checkUserObjectInResponse(responseChange); //Хотелось бы провернить наличие user и password
-
     }
 
     @Step("Check status code is correct")
     public void checkStatusCodeInResponse(Response responseChange) {
         responseChange.then().statusCode(200);
-
     }
 
     @Step("Check success parameter is correct")
@@ -66,7 +59,5 @@ public class UserChangeEmailWithAuthSuccessTest {
     public void tearDown() {
         Response responseDelete = userSteps.sendDeleteRequestAuthUser(token);
         responseDelete.then().body("success", equalTo(true)).and().body("message", equalTo("User successfully removed"));
-
     }
-
 }

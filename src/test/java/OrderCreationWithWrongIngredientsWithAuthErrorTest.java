@@ -17,14 +17,10 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static utils.Utils.randomString;
 
 public class OrderCreationWithWrongIngredientsWithAuthErrorTest {
-
     private User userLogin;
     private Order orderCreate;
-
     private List<String> ingredients;
-
     private String token;
-
     UserSteps userSteps = new UserSteps();
     OrderSteps orderSteps = new OrderSteps();
 
@@ -44,29 +40,22 @@ public class OrderCreationWithWrongIngredientsWithAuthErrorTest {
 
         orderCreate = new Order()
                 .withIngredients(ingredients);
-
     }
 
     @Test
     public void createOrderWithWrongIngredientsWithAuthError() {
-
-
         Response responseCreate = orderSteps.sendPostRequestOrdersWithAuth(orderCreate, token);
         checkStatusCodeInResponse(responseCreate);
-
     }
 
     @Step("Check status code is correct")
     public void checkStatusCodeInResponse(Response responseCreate) {
         responseCreate.then().statusCode(500);
-
     }
 
     @After
     public void tearDown() {
         Response responseDelete = userSteps.sendDeleteRequestAuthUser(token);
         responseDelete.then().body("success", equalTo(true)).and().body("message", equalTo("User successfully removed"));
-
     }
-
 }

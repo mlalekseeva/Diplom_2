@@ -12,9 +12,7 @@ import static org.hamcrest.CoreMatchers.notNullValue;
 import static utils.Utils.randomString;
 
 public class UserCreationSuccessTest {
-
     private User userCreate;
-
     UserSteps userSteps = new UserSteps();
     private String name = randomString(20);
     private String email = randomString(10) + "@yandex.ru";
@@ -31,7 +29,6 @@ public class UserCreationSuccessTest {
 
     @Test
     public void createUserSuccess() {
-
         Response response = userSteps.sendPostRequestAuthRegister(userCreate);
         token = response.path("accessToken").toString();
         checkStatusCodeInResponse(response);
@@ -39,13 +36,11 @@ public class UserCreationSuccessTest {
         checkUserObjectInResponse(response); //Хотелось бы провернить наличие user и password
         checkAccessTokenParameterInResponse(response);
         checkRefreshTokenParameterInResponse(response);
-
     }
 
     @Step("Check status code is correct")
     public void checkStatusCodeInResponse(Response response) {
         response.then().statusCode(200);
-
     }
 
     @Step("Check success parameter is correct")
@@ -72,9 +67,5 @@ public class UserCreationSuccessTest {
     public void tearDown() {
         Response responseDelete = userSteps.sendDeleteRequestAuthUser(token);
         responseDelete.then().body("success", equalTo(true)).and().body("message", equalTo("User successfully removed"));
-
     }
-
-
-
 }
